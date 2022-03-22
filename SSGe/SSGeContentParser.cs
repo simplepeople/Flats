@@ -30,7 +30,7 @@ public class SSGeContentParser : IContentParser
             .Select(nodesGroup =>
             {
                 var urltext = nodesGroup.Item1.Attributes["href"].Value;
-                var idtext = urltext.Split("--").Last();
+                var idtext = urltext.Split("-").Last();
                 var ad = new Advertisment
                 {
                     Id = Int64.Parse(idtext),
