@@ -6,7 +6,7 @@ public class TelegramMessageBuilder
 {
     public List<TelegramMessage> Build(List<Advertisment> ads)
     {
-        return ads.OrderBy(x=>x.Id).Select(ad => new TelegramMessage
+        return ads.OrderBy(x => x.Id).Select(ad => new TelegramMessage
         {
             Content = $"{BuildTags(ad)} {BuildCost(ad)} {BuildLink(ad)} {BuildPublishedDate(ad)}"
         }).ToList();
@@ -14,7 +14,7 @@ public class TelegramMessageBuilder
 
     private string BuildTags(Advertisment ad)
     {
-        var tags = ad.Tags;
+        var tags = ad.Tags.Where(tag => !new[] { Tag.SSGe, Tag.MyHomeGe, Tag.Batumi }.Contains(tag)).ToArray();
         var sb = new StringBuilder();
         foreach (var tag in tags)
         {
@@ -22,6 +22,7 @@ public class TelegramMessageBuilder
             sb.Append(TagDescription.Dictionary[tag]);
             sb.Append(" ");
         }
+
         return sb.ToString();
     }
 
